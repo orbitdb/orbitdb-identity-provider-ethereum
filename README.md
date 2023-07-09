@@ -4,7 +4,7 @@
   <img src="https://github.com/orbitdb/orbit-db/blob/main/images/orbit_db_logo_color.png" width="256" />
 </p>
 
-[![Matrix](https://img.shields.io/matrix/orbit-db:matrix.org?label=chat%20on%20matrix)](https://app.element.io/#/room/#orbit-db:matrix.org) [![npm version](https://badge.fury.io/js/orbit-db.svg)](https://www.npmjs.com/package/orbit-db) [![node](https://img.shields.io/node/v/orbit-db.svg)](https://www.npmjs.com/package/orbit-db-identity-provider-ethereum)
+[![Matrix](https://img.shields.io/matrix/orbit-db:matrix.org?label=chat%20on%20matrix)](https://app.element.io/#/room/#orbit-db:matrix.org) [![npm version](https://badge.fury.io/js/orbit-db.svg)](https://www.npmjs.com/package/orbit-db-identity-provider-ethereum) [![node](https://img.shields.io/node/v/orbit-db.svg)](https://www.npmjs.com/package/orbit-db-identity-provider-ethereum)
 
 Create and sign OrbitDB identities using an Ethereum wallet.
 
