@@ -1,7 +1,7 @@
 # OrbitDB Ethereum Identity Provider
 
 <p align="left">
-  <img src="images/orbit_db_logo_color.png" width="256" />
+  <img src="https://github.com/orbitdb/orbit-db/blob/main/images/orbit_db_logo_color.png" width="256" />
 </p>
 
 [![Matrix](https://img.shields.io/matrix/orbit-db:matrix.org?label=chat%20on%20matrix)](https://app.element.io/#/room/#orbit-db:matrix.org) [![npm version](https://badge.fury.io/js/orbit-db.svg)](https://www.npmjs.com/package/orbit-db) [![node](https://img.shields.io/node/v/orbit-db.svg)](https://www.npmjs.com/package/orbit-db-identity-provider-ethereum)
@@ -23,7 +23,7 @@ npm i orbit-db-identity-provider-ethereum
 
 ## Usage
 
-Use [addIdentityProvider](https://api.orbitdb.org/) to make the Ethereum identity provider available to OrbitDB, then use 
+Use [addIdentityProvider](https://api.orbitdb.org/module-Identities.html#.addIdentityProvider) to make the Ethereum identity provider available to OrbitDB, then pass the `type` param to [createIdentity](https://api.orbitdb.org/module-Identities-Identities.html#createIdentity) with the identity provider name "ethereum":
 
 ```js
 // Fill out with actual use case
@@ -37,7 +37,7 @@ addIdentityProvider(OrbitDBIdentityProviderEthereum)
 
 const identities = await Identities({ ipfs })
 
-const identity = await identities.createIdentity({ id: 'userA', type: 'ethereum' }) // you can now use this with when opening OrbitDB databases.
+const identity = await identities.createIdentity({ id: 'userA', type: 'ethereum' }) // you can now use this with your OrbitDB databases.
 ```
 
 ## Contributing
