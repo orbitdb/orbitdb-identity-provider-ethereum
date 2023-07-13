@@ -1,4 +1,4 @@
-import { Wallet, verifyMessage } from '@ethersproject/wallet'
+import { verifyMessage } from '@ethersproject/wallet'
 
 const type = 'ethereum'
 
@@ -18,12 +18,9 @@ const verifyIdentity = identity => {
   return (signerAddress === identity.id)
 }
 
-const OrbitDBIdentityProviderEthereum = ({ wallet }) => {
+const OrbitDBIdentityProviderEthereum = ({ wallet } = {}) => {
   // Returns the signer's id
   const getId = async (options = {}) => {
-    if (!wallet) {
-      wallet = await _createWallet(options)
-    }
     return wallet.getAddress()
   }
 
@@ -34,32 +31,6 @@ const OrbitDBIdentityProviderEthereum = ({ wallet }) => {
     }
 
     return wallet.signMessage(data)
-  }
-
-  const _createWallet = async (options = {}) => {
-    if (options.mnemonicOpts) {
-      if (!options.mnemonicOpts.mnemonic) {
-        throw new Error('mnemonic is required')
-      }
-
-      const { mnemonic, path, wordlist } = options.mnemonicOpts
-      return Wallet.fromMnemonic(mnemonic, path, wordlist)
-    }
-
-    if (options.encryptedJsonOpts) {
-      if (!options.encryptedJsonOpts.json) {
-        throw new Error('encrypted json is required')
-      }
-
-      if (!options.encryptedJsonOpts.password) {
-        throw new Error('password for encrypted json is required')
-      }
-
-      const { json, password, progressCallback } = options.encryptedJsonOpts
-      return Wallet.fromEncryptedJson(json, password, progressCallback)
-    }
-
-    return Wallet.createRandom()
   }
 
   return {

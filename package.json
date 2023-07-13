@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "lint": "standard --env=mocha",
-    "lint:fix": "standard --fix"
+    "lint:fix": "standard --fix",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,15 @@
     "@ethersproject/wallet": "^5.7.0"
   },
   "devDependencies": {
+    "mocha": "^10.2.0",
     "standard": "^17.1.0"
+  },  
+  "standard": {
+    "env": [
+      "mocha"
+    ],
+    "ignore": [
+      "keystore"
+    ]
   }
 }
