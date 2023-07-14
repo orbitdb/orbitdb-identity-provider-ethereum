@@ -47,24 +47,19 @@ describe('Ethereum Identity Provider', function () {
       assert.strictEqual(identity.publicKey, keystore.getPublic(signingKey))
     })
 
-    /*
     it('has a signature for the id', async () => {
       const signingKey = await keystore.getKey(wallet.address)
-      const idSignature = await keystore.sign(signingKey, wallet.address)
-      const verifies = await KeyStore.verify(idSignature, Buffer.from(signingKey.public.marshal()).toString('hex'), wallet.address)
+      const idSignature = await identities.sign(identity, wallet.address)
+      const verifies = await identities.verify(idSignature, Buffer.from(signingKey.public.marshal()).toString('hex'), wallet.address)
       assert.strictEqual(verifies, true)
       assert.strictEqual(identity.signatures.id, idSignature)
     })
-    */
 
-    /*
     it('has a signature for the publicKey', async () => {
-      const signingKey = await keystore.getKey(wallet.address)
-      const idSignature = await keystore.sign(signingKey, wallet.address)
+      const idSignature = await identities.sign(identity, wallet.address)
       const publicKeyAndIdSignature = await wallet.signMessage(identity.publicKey + idSignature)
       assert.strictEqual(identity.signatures.publicKey, publicKeyAndIdSignature)
     })
-    */
   })
 
   describe('verify identity', () => {
@@ -79,47 +74,40 @@ describe('Ethereum Identity Provider', function () {
       assert.strictEqual(verified, true)
     })
 
-    /*
     it('ethereum identity with incorrect id does not verify', async () => {
-      const identity2 = new Identity('NotAnId', identity.publicKey, identity.signatures.id, identity.signatures.publicKey, identity.type, identity.provider)
-      const verified = await Identities.verifyIdentity(identity2)
+      const identity2 = { id: 'NotAnId', publicKey: identity.publicKey, signatures: identity.signatures, type: identity.type, sign: identities.sign, verify: identities.verify }
+      const verified = await identities.verifyIdentity(identity2)
       assert.strictEqual(verified, false)
     })
-    */
   })
 
   describe('sign data with an identity', () => {
-    // let identity
-    // const data = 'hello friend'
+    let identity
+    const data = 'hello friend'
 
     before(async () => {
-      // identity = await identities.createIdentity({ keystore, type, wallet })
+      identity = await identities.createIdentity({ keystore, type, wallet })
     })
 
-    /*
     it('sign data', async () => {
-      const signingKey = await keystore.getKey(identity.id)
-      const expectedSignature = await keystore.sign(signingKey, data)
+      const expectedSignature = await identities.sign(identity, data)
       const signature = await identity.sign(identity, data, keystore)
       assert.strictEqual(signature, expectedSignature)
     })
-    */
 
-    /*
     it('throws an error if private key is not found from keystore', async () => {
       // Remove the key from the keystore (we're using a mock storage in these tests)
-      const modifiedIdentity = new Identity('this id does not exist', identity.publicKey, '<sig>', identity.signatures, identity.type, identity.provider)
+      const modifiedIdentity = { id: 'this id does not exist', publicKey: identity.publicKey, signature: identity.signatures, type: identity.type, sign: identities.sign, verify: identities.verify }
       let signature
       let err
       try {
-        signature = await identity.provider.sign(modifiedIdentity, data, keystore)
+        signature = await identity.sign(modifiedIdentity, data, keystore)
       } catch (e) {
         err = e.toString()
       }
       assert.strictEqual(signature, undefined)
       assert.strictEqual(err, 'Error: Private signing key not found from KeyStore')
     })
-    */
 
     describe('verify data signed by an identity', () => {
       const data = 'hello friend'
