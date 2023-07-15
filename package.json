@@ -33,7 +33,7 @@
   "devDependencies": {
     "mocha": "^10.2.0",
     "standard": "^17.1.0"
-  },  
+  },
   "standard": {
     "env": [
       "mocha"
