@@ -1,7 +1,7 @@
 import assert from 'assert'
 import path from 'path'
 import rmrf from 'rimraf'
-import { KeyStore, Identities, addIdentityProvider } from 'orbitdb'
+import { KeyStore, Identities, addIdentityProvider } from '@orbitdb/core'
 import * as EthereumIdentityProvider from '../src/index.js'
 import createWallet from './utils/create-wallet.js'
 
