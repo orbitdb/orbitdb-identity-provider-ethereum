@@ -1,6 +1,6 @@
 {
   "name": "@orbitdb/identity-provider-ethereum",
-  "version": "0.30.0",
+  "version": "0.30.1",
   "description": "An identity provider for creating and signing OrbitDB identities using an Ethereum wallet.",
   "main": "src/index.js",
   "type": "module",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/orbitdb/orbit-db-identity-provider-ethereum.git"
+    "url": "git+https://github.com/orbitdb/orbitdb-identity-provider-ethereum.git"
   },
   "keywords": [
     "orbitdb",
@@ -24,9 +24,9 @@
   "author": "OrbitDB",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/orbitdb/orbit-db-identity-provider-ethereum/issues"
+    "url": "https://github.com/orbitdb/orbitdb-identity-provider-ethereum/issues"
   },
-  "homepage": "https://github.com/orbitdb/orbit-db-identity-provider-ethereum#readme",
+  "homepage": "https://github.com/orbitdb/orbitdb-identity-provider-ethereum#readme",
   "dependencies": {
     "@ethersproject/wallet": "^5.7.0",
     "@orbitdb/core": "^0.30.1"
