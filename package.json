@@ -1,6 +1,6 @@
 {
   "name": "@orbitdb/identity-provider-ethereum",
-  "version": "1.0.0-dev",
+  "version": "0.30.0",
   "description": "An identity provider for creating and signing OrbitDB identities using an Ethereum wallet.",
   "main": "src/index.js",
   "type": "module",
@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/orbitdb/orbit-db-identity-provider-ethereum#readme",
   "dependencies": {
-    "@ethersproject/wallet": "^5.7.0"
+    "@ethersproject/wallet": "^5.7.0",
+    "@orbitdb/core": "^0.30.1"
   },
   "devDependencies": {
     "mocha": "^10.2.0",
