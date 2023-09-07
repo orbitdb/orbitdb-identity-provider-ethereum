@@ -8,7 +8,7 @@ const type = 'ethereum'
  * @return {boolean} True if the identity is valid, false otherwise.
  * @static
  */
-const verifyIdentity = identity => {
+const verifyIdentity = async identity => {
   // Verify that identity was signed by the id
   const signerAddress = verifyMessage(
     identity.publicKey + identity.signatures.id,
@@ -18,7 +18,7 @@ const verifyIdentity = identity => {
   return (signerAddress === identity.id)
 }
 
-const OrbitDBIdentityProviderEthereum = ({ wallet } = {}) => {
+const OrbitDBIdentityProviderEthereum = ({ wallet } = {}) => async () => {
   // Returns the signer's id
   const getId = async (options = {}) => {
     return wallet.getAddress()
@@ -34,9 +34,13 @@ const OrbitDBIdentityProviderEthereum = ({ wallet } = {}) => {
   }
 
   return {
+    type,
     getId,
     signIdentity
   }
 }
 
-export { OrbitDBIdentityProviderEthereum as default, verifyIdentity, type }
+OrbitDBIdentityProviderEthereum.type = type
+OrbitDBIdentityProviderEthereum.verifyIdentity = verifyIdentity
+
+export default OrbitDBIdentityProviderEthereum
