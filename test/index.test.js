@@ -1,23 +1,24 @@
 import assert from 'assert'
 import path from 'path'
 import rmrf from 'rimraf'
-import { KeyStore, Identities, addIdentityProvider } from '@orbitdb/core'
-import * as EthereumIdentityProvider from '../src/index.js'
+import { KeyStore, Identities, useIdentityProvider } from '@orbitdb/core'
+import OrbitDBIdentityProviderEthereum from '../src/index.js'
 import createWallet from './utils/create-wallet.js'
 
 const keypath = path.resolve('./test/keys')
 let keystore
 let identities
+let provider
 let wallet
 
-const type = EthereumIdentityProvider.type
 describe('Ethereum Identity Provider', function () {
   before(async () => {
     rmrf.sync(keypath)
-    addIdentityProvider(EthereumIdentityProvider)
+    useIdentityProvider(OrbitDBIdentityProviderEthereum)
     keystore = await KeyStore({ path: keypath })
     identities = await Identities({ keystore })
     wallet = await createWallet()
+    provider = OrbitDBIdentityProviderEthereum({ wallet })
   })
 
   after(async () => {
@@ -29,7 +30,7 @@ describe('Ethereum Identity Provider', function () {
     let identity
 
     before(async () => {
-      identity = await identities.createIdentity({ type, keystore, wallet })
+      identity = await identities.createIdentity({ provider, keystore })
     })
 
     it('has the correct id', async () => {
@@ -66,7 +67,7 @@ describe('Ethereum Identity Provider', function () {
     let identity
 
     before(async () => {
-      identity = await identities.createIdentity({ keystore, type, wallet })
+      identity = await identities.createIdentity({ provider, keystore })
     })
 
     it('ethereum identity verifies', async () => {
@@ -86,7 +87,7 @@ describe('Ethereum Identity Provider', function () {
     const data = 'hello friend'
 
     before(async () => {
-      identity = await identities.createIdentity({ keystore, type, wallet })
+      identity = await identities.createIdentity({ provider, keystore })
     })
 
     it('sign data', async () => {
@@ -115,7 +116,7 @@ describe('Ethereum Identity Provider', function () {
       let signature
 
       before(async () => {
-        identity = await identities.createIdentity({ type, keystore, wallet })
+        identity = await identities.createIdentity({ provider, keystore })
         signature = await identity.sign(identity, data, keystore)
       })
 
