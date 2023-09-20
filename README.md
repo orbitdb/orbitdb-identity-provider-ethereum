@@ -8,11 +8,6 @@
 
 Create and sign OrbitDB identities using an Ethereum wallet.
 
-#### Project status & support
-
-* Status: **in active development**
-* Compatible with **orbit-db versions >= 1.0.0**
-
 ## Install
 
 This project uses [npm](http://npmjs.com/) and [nodejs](https://nodejs.org/).
