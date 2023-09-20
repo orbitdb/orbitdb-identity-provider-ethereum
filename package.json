@@ -1,6 +1,6 @@
 {
   "name": "@orbitdb/identity-provider-ethereum",
-  "version": "0.31.0",
+  "version": "1.0.0",
   "description": "An identity provider for creating and signing OrbitDB identities using an Ethereum wallet.",
   "main": "src/index.js",
   "type": "module",
