@@ -6,6 +6,8 @@ import createWallet from './utils/create-wallet.js'
 import * as IPFS from 'ipfs-core'
 
 describe('Use Ethereum Identity Provider with OrbitDB', function () {
+  this.timeout(10000)
+
   let ipfs
   let wallet
   let provider
