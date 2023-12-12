@@ -32,7 +32,9 @@
     "@orbitdb/core": "^0.31.1-9beddc8.0"
   },
   "devDependencies": {
+    "ipfs-core": "^0.18.1",
     "mocha": "^10.2.0",
+    "rimraf": "^5.0.5",
     "standard": "^17.1.0"
   },
   "standard": {
