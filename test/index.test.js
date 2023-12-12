@@ -1,6 +1,6 @@
 import assert from 'assert'
 import path from 'path'
-import rmrf from 'rimraf'
+import { rimraf } from 'rimraf'
 import { KeyStore, Identities, useIdentityProvider } from '@orbitdb/core'
 import OrbitDBIdentityProviderEthereum from '../src/index.js'
 import createWallet from './utils/create-wallet.js'
@@ -13,7 +13,7 @@ let wallet
 
 describe('Ethereum Identity Provider', function () {
   before(async () => {
-    rmrf.sync(keypath)
+    await rimraf(keypath)
     useIdentityProvider(OrbitDBIdentityProviderEthereum)
     keystore = await KeyStore({ path: keypath })
     identities = await Identities({ keystore })
@@ -23,7 +23,7 @@ describe('Ethereum Identity Provider', function () {
 
   after(async () => {
     await keystore.close()
-    rmrf.sync(keypath)
+    await rimraf(keypath)
   })
 
   describe('create an ethereum identity', () => {
