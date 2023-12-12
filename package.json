@@ -9,6 +9,9 @@
     "lint:fix": "standard --fix",
     "test": "mocha"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/orbitdb/orbitdb-identity-provider-ethereum.git"
@@ -28,10 +31,10 @@
   },
   "homepage": "https://github.com/orbitdb/orbitdb-identity-provider-ethereum#readme",
   "dependencies": {
-    "@ethersproject/wallet": "^5.7.0",
-    "@orbitdb/core": "^0.31.1-9beddc8.0"
+    "@ethersproject/wallet": "^5.7.0"
   },
   "devDependencies": {
+    "@orbitdb/core": "^1.0.2",
     "ipfs-core": "^0.18.1",
     "mocha": "^10.2.0",
     "rimraf": "^5.0.5",
