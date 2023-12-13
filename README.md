@@ -4,7 +4,7 @@
   <img src="https://github.com/orbitdb/orbitdb/blob/main/images/orbit_db_logo_color.png" width="256" />
 </p>
 
-[![Matrix](https://img.shields.io/matrix/orbit-db:matrix.org?label=chat%20on%20matrix)](https://app.element.io/#/room/#orbit-db:matrix.org) [![npm version](https://badge.fury.io/js/orbit-db.svg)](https://www.npmjs.com/package/orbit-db-identity-provider-ethereum) [![node](https://img.shields.io/node/v/orbit-db.svg)](https://www.npmjs.com/package/@orbitdb/identity-provider-ethereum)
+[![Matrix](https://img.shields.io/matrix/orbit-db:matrix.org?label=chat%20on%20matrix)](https://app.element.io/#/room/#orbit-db:matrix.org) [![npm (scoped)](https://img.shields.io/npm/v/%40orbitdb/identity-provider-ethereum)](https://www.npmjs.com/package/%40orbitdb/identity-provider-ethereum) [![node-current (scoped)](https://img.shields.io/node/v/%40orbitdb/identity-provider-ethereum)](https://www.npmjs.com/package/@orbitdb/identity-provider-ethereum)
 
 Create and sign OrbitDB identities using an Ethereum wallet.
 
@@ -18,21 +18,38 @@ npm i @orbitdb/identity-provider-ethereum
 
 ## Usage
 
-Use [addIdentityProvider](https://api.orbitdb.org/module-Identities.html#.addIdentityProvider) to make the Ethereum identity provider available to OrbitDB, then pass the `type` param to [createIdentity](https://api.orbitdb.org/module-Identities-Identities.html#createIdentity) with the identity provider name "ethereum":
+Start by registering the OrbitDBIdentityProviderEthereum identity provider with [useIdentityProvider](https://api.orbitdb.org/module-Identities.html#.useIdentityProvider).
+
+Once registered, you can simply pass in the identity provider when creating an OrbitDB instance:
 
 ```js
-// Fill out with actual use case
+import { createOrbitDB, useIdentityProvider } from '@orbitdb/core'
+import * as OrbitDBIdentityProviderEthereum from '@orbitdb/identity-provider-ethereum'
+import { Wallet } from '@ethersproject/wallet'
+
+const wallet = Wallet.createRandom()
+
+useIdentityProvider(OrbitDBIdentityProviderEthereum)
+const provider = OrbitDBIdentityProviderEthereum({ wallet })
+await createOrbitDB({ ipfs, identity: { provider } })
+```
+
+If you require a more custom approach to managing identities, you can create an identity by passing the identity provider to [createIdentity](https://api.orbitdb.org/module-Identities-Identities.html#createIdentity) then use the resulting identity with OrbitDB:
+
+```js
+import { createOrbitDB, Identities, useIdentityProvider } from '@orbitdb/core'
 import * as OrbitDBIdentityProviderEthereum from '@orbitdb/identity-provider-ethereum'
 import { create } from 'ipfs-core'
-import { Identities, addIdentityProvider } from '@orbitdb/core'
 
 const ipfs = await create()
 
-addIdentityProvider(OrbitDBIdentityProviderEthereum)
+useIdentityProvider(OrbitDBIdentityProviderEthereum)
+const provider = OrbitDBIdentityProviderEthereum({ wallet })
 
 const identities = await Identities({ ipfs })
+const identity = await identities.createIdentity({ id: 'userA', provider })
 
-const identity = await identities.createIdentity({ id: 'userA', type: 'ethereum' }) // you can now use this with your OrbitDB databases.
+await createOrbitDB({ ipfs, identities, identity })
 ```
 
 ## Contributing
