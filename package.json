@@ -34,8 +34,8 @@
     "@ethersproject/wallet": "^5.7.0"
   },
   "devDependencies": {
-    "@orbitdb/core": "^1.0.2",
-    "ipfs-core": "^0.18.1",
+    "@orbitdb/core": "^2.0.1",
+    "helia": "^4.0.0",
     "mocha": "^10.2.0",
     "rimraf": "^5.0.5",
     "standard": "^17.1.0"
