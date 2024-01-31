@@ -37,11 +37,12 @@ await createOrbitDB({ ipfs, identity: { provider } })
 If you require a more custom approach to managing identities, you can create an identity by passing the identity provider to [createIdentity](https://api.orbitdb.org/module-Identities-Identities.html#createIdentity) then use the resulting identity with OrbitDB:
 
 ```js
+import { createHelia, libp2pDefaults } from 'helia'
 import { createOrbitDB, Identities, useIdentityProvider } from '@orbitdb/core'
 import * as OrbitDBIdentityProviderEthereum from '@orbitdb/identity-provider-ethereum'
-import { create } from 'ipfs-core'
 
-const ipfs = await create()
+const libp2pOptions = libp2pDefaults()
+const ipfs = await createHelia({ libp2p: libp2pOptions })
 
 useIdentityProvider(OrbitDBIdentityProviderEthereum)
 const provider = OrbitDBIdentityProviderEthereum({ wallet })

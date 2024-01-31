@@ -1,9 +1,9 @@
 import assert from 'assert'
 import { rimraf } from 'rimraf'
+import { createHelia, libp2pDefaults } from 'helia'
 import { createOrbitDB, Identities } from '@orbitdb/core'
 import OrbitDBIdentityProviderEthereum from '../src/index.js'
 import createWallet from './utils/create-wallet.js'
-import * as IPFS from 'ipfs-core'
 
 describe('Use Ethereum Identity Provider with OrbitDB', function () {
   this.timeout(10000)
@@ -13,7 +13,8 @@ describe('Use Ethereum Identity Provider with OrbitDB', function () {
   let provider
 
   beforeEach(async () => {
-    ipfs = await IPFS.create({})
+    const libp2pOptions = libp2pDefaults()
+    ipfs = await createHelia({ libp2p: libp2pOptions })
     wallet = await createWallet()
     provider = OrbitDBIdentityProviderEthereum({ wallet })
   })
