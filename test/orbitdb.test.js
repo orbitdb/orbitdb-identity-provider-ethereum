@@ -2,7 +2,7 @@ import assert from 'assert'
 import { rimraf } from 'rimraf'
 import { createHelia, libp2pDefaults } from 'helia'
 import { createOrbitDB, Identities } from '@orbitdb/core'
-import OrbitDBIdentityProviderEthereum from '../src/index.js'
+import OrbitDBIdentityProviderEthereum, { OrbitDBIdentityProviderEthereumEIP712 } from '../src/index.js'
 import createWallet from './utils/create-wallet.js'
 
 describe('Use Ethereum Identity Provider with OrbitDB', function () {
@@ -36,5 +36,12 @@ describe('Use Ethereum Identity Provider with OrbitDB', function () {
     const orbitdb = await createOrbitDB({ ipfs, identities, identity })
 
     assert.strictEqual(orbitdb.identity.id, wallet.address)
+  })
+
+  it('should be passed using identity.provider with the EIP-712 provider', async () => {
+    const orbitdb = await createOrbitDB({ ipfs, identity: { provider: OrbitDBIdentityProviderEthereumEIP712({ wallet }) } })
+
+    assert.strictEqual(orbitdb.identity.id, wallet.address)
+    assert.strictEqual(orbitdb.identity.type, 'ethereum-eip712')
   })
 })

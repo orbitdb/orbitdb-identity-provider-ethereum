@@ -53,6 +53,32 @@ const identity = await identities.createIdentity({ id: 'userA', provider })
 await createOrbitDB({ ipfs, identities, identity })
 ```
 
+## EIP-712 typed data signing
+
+`OrbitDBIdentityProviderEthereumEIP712` signs the identity as [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data instead of an opaque hex string, so wallets can display labeled fields (`id`, `publicKey`, `idSignature`). It has its own identity type, `ethereum-eip712`, so identities created by the original provider continue to verify.
+
+```js
+import { useIdentityProvider } from '@orbitdb/core'
+import { OrbitDBIdentityProviderEthereumEIP712 } from '@orbitdb/identity-provider-ethereum'
+
+useIdentityProvider(OrbitDBIdentityProviderEthereumEIP712)
+const provider = OrbitDBIdentityProviderEthereumEIP712({ wallet })
+await createOrbitDB({ ipfs, identity: { provider } })
+```
+
+The wallet must implement `getAddress()` and `signTypedData(domain, types, value)` (ethers v5 `Wallet._signTypedData` is also accepted). For a viem wallet client:
+
+```js
+const wallet = {
+  getAddress: () => address,
+  signTypedData: (domain, types, message) => walletClient.signTypedData({
+    account: address, domain, types, primaryType: 'OrbitDBIdentity', message
+  })
+}
+```
+
+The domain is fixed so an identity can be verified without extra context: `{ name: 'OrbitDB Identity', version: '1', verifyingContract: 0x000…000 }`. `chainId` is omitted because wallets reject typed data whose chainId doesn't match the active chain, and the `verifyingContract` is a placeholder. Identities are not tied to a chain or contract.
+
 ## Contributing
 
 **Take a look at our organization-wide [Contributing Guide](https://github.com/orbitdb/welcome/blob/master/contributing.md).** You'll find most of your questions answered there. Some questions may be answered in the [FAQ](FAQ.md), as well.

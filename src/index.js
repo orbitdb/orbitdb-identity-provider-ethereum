@@ -1,5 +1,7 @@
 import { verifyMessage } from '@ethersproject/wallet'
 
+export { default as OrbitDBIdentityProviderEthereumEIP712 } from './eip712.js'
+
 const type = 'ethereum'
 
 /**
